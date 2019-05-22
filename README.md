@@ -3,7 +3,7 @@
 <p>Python codes related to stock trading</p>
 <p> Reference: https://www.youtube.com/watch?v=2BrpKpWwT2A </p>
 
-<h2><b>Descriptions</b></h2>
+<h2><b>Project Descriptions</b></h2>
 
 <h3><b>7-day_intraday_alpha_vantage_stock_prices.py</b></h3>
 <ul>
