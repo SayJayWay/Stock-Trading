@@ -36,5 +36,5 @@
 
 <h2><b>References</b></h2>
 <ul>
-  <li>Reference: https://www.youtube.com/watch?v=2BrpKpWwT2A</li>
+  <li>https://www.youtube.com/watch?v=2BrpKpWwT2A</li>
 </ul>
