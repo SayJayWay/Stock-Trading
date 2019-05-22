@@ -1,7 +1,6 @@
 <h1>Stock Trading Scripts</h1>
 
 <p>Python codes related to stock trading</p>
-<p> Reference: https://www.youtube.com/watch?v=2BrpKpWwT2A </p>
 
 <h2><b>Project Descriptions</b></h2>
 
@@ -33,4 +32,9 @@
   <li> buy_sell_hold(*args) - returns a boolean to determine if stock has moved at least 2% within the last day </li>
   <li> extract_featuresets(ticker) - Returns a normalized feature set of stocks as well as the buy/hold/sell classifications </li>
   <li> do_ml(ticker) - Uses a voting classifier to vote for best course of action and back tests against 25% of sample data.  Here, classifiers used are: Linear support vector classifier, k-nearest neighbours, random forest classifier.  Prints accuracy as well as predicted spread. </li>
+</ul>
+
+<h2><b>References</b></h2>
+<ul>
+  <li>Reference: https://www.youtube.com/watch?v=2BrpKpWwT2A</li>
 </ul>
