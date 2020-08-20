@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 
-data = pd.read_csv(r'stock_dfs/AAPL.csv', index_col=0)
+data = pd.read_csv(r'../stock_dfs/AAPL.csv', index_col=0)
 
 # Summary Statistics
 aggregation = data.aggregate([min,
