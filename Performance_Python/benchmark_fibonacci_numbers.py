@@ -52,3 +52,65 @@ def fib_rec_py2(n):
     
 #fib_rec_py2(35) # %time 0ns
 #fib_rec_py2(80) # %time 0ns
+    
+#%% Iterative
+# Here, Numba will help improve, but Cython will be the best
+
+def fib_it_py(n):
+    x, y = 0, 1
+    for i in range(1, n + 1):
+        x, y = y, x + y
+    return x
+
+# %time fib_it_py(80) ~ 0ns
+
+import numba
+fib_it_nb = numba.jit(fib_it_py)
+
+# %time fib_it_nb(80) 1.22s
+# %time fib_it_nb(80) 0 ns
+
+
+%%cython
+def fib_it_cy1(int n):
+    cdef long i
+    cdef long x = 0, y = 1
+    for i in range(1, n + 1):
+        x, y = y, x + y
+    return x
+
+#%time fib_it_cy1(80) 0ns
+
+#%%time
+#fn = fib_rec_py2(150)
+#print(fn) -> Output: 9969216677189303386214405760200
+#0 ns
+#fn.bit_length() # -> 103 which is > 64..Normal python can handle this and provide
+#    correct answer
+    
+#%%time
+#fn = fib_it_nb(150)
+#print(fn) -> Output: 6792540214324356296 <<< We can see that several numbers missing
+# 1 ms
+# fn.bit_length() # -> 63
+
+#%%time
+#fn = fib_it_cy1(150)
+#print(fn) -> 626779336 <<< even less
+#0 ns
+#fn.bit_length() # -> 30 <<< in book, was actually 63..
+
+
+#%% The following code does not work...getting system exit error..need to install some other thing?
+#%%cython
+#cdef extern from *:
+#    ctypedef int int128 '__int128_t'
+#def fib_it_cy2(int n):
+#    cdef int128 i
+#    cdef int128 x = 0, y = 1
+#    for i in range(1, n + 1):
+#        x, y = y, x + y
+#    return x
+
+# Above code should be faster and outputting 128-bit int object type that is correct
+    
