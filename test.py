@@ -20,10 +20,10 @@ import requests
 ##print(elapsed)
 
 
-start = dt.datetime(2017,1,1)
-end = dt.datetime(2019,11,30)
+start = dt.datetime(2016,1,1)
+end = dt.datetime(2020,9,12)
 
-tickers = ['SPY', 'GLD', 'MSFT', 'TSLA']
+tickers = ['AAPL', 'SPY', 'GLD', 'MSFT', 'TSLA']
 
 for ticker in tickers:
         if not os.path.exists('stock_dfs/{}.csv'.format(ticker)):
