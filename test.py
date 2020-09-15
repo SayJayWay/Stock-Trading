@@ -23,7 +23,7 @@ import requests
 start = dt.datetime(2016,1,1)
 end = dt.datetime(2020,9,12)
 
-tickers = ['AAPL', 'SPY', 'GLD', 'MSFT', 'TSLA']
+tickers = ['GDX']
 
 for ticker in tickers:
         if not os.path.exists('stock_dfs/{}.csv'.format(ticker)):
