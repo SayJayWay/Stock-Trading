@@ -1,0 +1,23 @@
+TensorFlow 2.0 Upgrade Script
+-----------------------------
+Converted 1 files
+Detected 2 issues that require attention
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+File: machine_learning.py
+--------------------------------------------------------------------------------
+machine_learning.py:216:6: ERROR: Using member tf.contrib.layers.real_valued_column in deprecated module tf.contrib. tf.contrib.layers.real_valued_column cannot be converted automatically. tf.contrib will not be distributed with TensorFlow 2.0, please consider an alternative in non-contrib TensorFlow, a community-maintained repository such as tensorflow/addons, or fork the required code.
+machine_learning.py:218:8: ERROR: Using member tf.contrib.learn.DNNClassifier in deprecated module tf.contrib. tf.contrib.learn.DNNClassifier cannot be converted automatically. tf.contrib will not be distributed with TensorFlow 2.0, please consider an alternative in non-contrib TensorFlow, a community-maintained repository such as tensorflow/addons, or fork the required code.
+================================================================================
+Detailed log follows:
+
+================================================================================
+--------------------------------------------------------------------------------
+Processing file 'machine_learning.py'
+ outputting to 'machine_learning_v2.py'
+--------------------------------------------------------------------------------
+
+216:6: ERROR: Using member tf.contrib.layers.real_valued_column in deprecated module tf.contrib. tf.contrib.layers.real_valued_column cannot be converted automatically. tf.contrib will not be distributed with TensorFlow 2.0, please consider an alternative in non-contrib TensorFlow, a community-maintained repository such as tensorflow/addons, or fork the required code.
+218:8: ERROR: Using member tf.contrib.learn.DNNClassifier in deprecated module tf.contrib. tf.contrib.learn.DNNClassifier cannot be converted automatically. tf.contrib will not be distributed with TensorFlow 2.0, please consider an alternative in non-contrib TensorFlow, a community-maintained repository such as tensorflow/addons, or fork the required code.
+--------------------------------------------------------------------------------
+

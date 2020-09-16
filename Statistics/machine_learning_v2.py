@@ -65,7 +65,7 @@ y_gm = model.predict(X)
 # Supervised Learning
 # =============================================================================
 # Data creation must have two real-valued, informative features and a single binary
-# label (characterized by two different classes only, 0 and 1.
+# label (characterized by two different classes only, 0 and 1).
 
 from sklearn.datasets import make_classification
 
@@ -211,18 +211,135 @@ accuracy_score(y, pred)
 # Tensorflow set-up is slightly different
 
 import tensorflow as tf
-#tf.logging.set_verbosity(tf.logging.ERROR)
+#tf.logging.set_verbosity(tf.logging.ERROR) # Sets verbosity for TensorFlow logging
 
-fc = [tf.contrib.layers.real_valued_column('features')]
+fc = [tf.contrib.layers.real_valued_column('features')] # Defines real-valued features abstractly
 
+# Instantiates model object
 model = tf.contrib.learn.DNNClassifier(hidden_units = 5 * [250],
                                        n_classes = 2,
                                        feature_columns = fc)
 
+# Features and label data are delivered by a function
 def input_fn():
     fc = {'features' : tf.constant(X)}
     la = tf.constant(y)
     return fc, la
-model.fit(input_fn = input_fn, steps = 100) # %time
 
+# Fit and evaluate model
+model.fit(input_fn = input_fn, steps = 100) # %time 5.33s
 model.evaluate(input_fn = input_fn, steps = 1)
+
+# Predicts label values based on feature values
+pred = np.array(list(model.predict(input_fn = input_fn))) # Predicts label values based on feature values
+
+# Retrains model based on learning more steps (previous results are taken as starting point)
+model.fit(input_fn = input_fn, steps = 750)
+
+model.evaluate(input_fn = input_fn, steps = 1) # Accuracy increases after retraining
+
+#%% Feature transforms
+# Typical transformations that are useful to know
+
+from sklearn import preprocessing
+
+X[:5] # Original matrix
+
+# Feature data -> Standard normally distributed data w/ 0 mean and unit variance
+Xs = preprocessing.StandardScaler().fit_transform(X)
+Xs[:5]
+
+# Feature data -> Given range for every feature as defined by min/max values per feature
+Xm = preprocessing.MinMaxScaler().fit_transform(X)
+Xm[:5]
+
+# Scales feature data individually accoridng to unit norm (L1 or L2)
+Xn1 = preprocessing.Normalizer(norm = 'l1').transform(X)
+Xn1[:5]
+Xn2 = preprocessing.Normalizer(norm = 'l2').transform(X)
+Xn2[:5]
+
+plt.figure(figsize = (10, 6))
+markers = ['o', '.', 'x', '^', 'v']
+data_sets = [X, Xs, Xm, Xn1, Xn2]
+labels = ['raw', 'standard', 'minmax', 'norm(1)', 'norm(2)']
+for x, m, l in zip(data_sets, markers, labels):
+    plt.scatter(x = x[:, 0], y = x[:, 1], c = y, marker = m, cmap = 'coolwarm',
+                label = l)
+plt.legend()
+
+# For pattern recognition tasks, a transformation to categorical features is
+# often helpful or sometimes required to achieve acceptable results.  To this
+# end, the real values of the features are mapped to a limited, fixed number
+# of possible integer values (categories, classes):
+
+X[:5]
+
+# Transforms the features to binary features -> 2 ** 2 number of possible feature
+# value combinations for two binary features
+Xb = preprocessing.Binarizer().fit_transform(X)
+Xb[:5]
+
+# Transforms features to categorical features based on a list of values used
+# for binning -> 4 ** 2 number of possible feature value combinations with 3 
+# values used for binning for two features
+Xd = np.digitize(X, bins = [-1, 0, 1]) 
+Xd[:5]
+
+#%% Train-test splits: Support vector machines
+# Always better to use train/test datasets (as opposed to what we did prior).
+# scikit-learn has function to do this effectively (train_test_split().  The 
+# following code uses another classification algorithm : the "support vector
+# machine (SVM)
+
+from sklearn.svm import SVC
+from sklearn.model_selection import train_test_split
+
+train_x, test_x, train_y, test_y = train_test_split(X, y, test_size = 0.33, random_state = 0)
+
+model = SVC(C = 1, kernel = 'linear')
+
+model.fit(train_x, train_y) # Fits model based on training data
+SVC(C = 1, cache_size = 200, class_weight = None, coef0 = 0.0,
+    decision_function_shape = 'ovr', degree = 3, gamma = 'auto_deprecated',
+    kernel = 'linear', max_iter = -1, probability = False, random_state = None,
+    shrinking = True, tol = 0.001, verbose = False)
+
+pred_train = model.predict(train_x) # Predicts training data label values
+
+accuracy_score(train_y, pred_train) # Accuracy of training data prediction ("in-sample")
+
+# Predicts testing data label values based on test data
+pred_test = model.predict(test_x)
+
+# Evaluates accuracy of fitted model for test data ("out-of-sample")
+test_y == pred_test
+
+accuracy_score(test_y, pred_test)
+
+test_c = test_x[test_y == pred_test]
+test_f = test_x[test_y != pred_test]
+
+plt.figure(figsize = (10, 6))
+plt.scatter(x = test_c[:, 0], y = test_c[:, 1], c = test_y[test_y == pred_test],
+            marker = 'o', cmap = 'coolwarm')
+
+plt.scatter(x = test_f[:, 0], y = test_f[:, 1], c = test_y[test_y != pred_test],
+            marker = 'x', cmap = 'coolwarm')
+plt.title('Correct (dots) and false predictions (crosses) from SVM for test data')
+
+# SVM algorithm has number of options for kernel to be used.  Dpeending on kernel
+# used, might lead to quite different results (i.e. accuracy scores)
+
+bins = np.linspace(-4.5, 4.5, 50)
+Xd = np.digitize(X, bins = bins)
+
+train_x, test_x, train_y, test_y = train_test_split(Xd, y, test_size = 0.33, random_state = 0)
+
+print('{:>8s} | {:8s}'.format('kernel', 'accuracy'))
+print(20 * '-')
+for kernel in ['linear', 'poly', 'rbf', 'sigmoid']:
+    model = SVC(C = 1, kernel = kernel, gamma = 'auto')
+    model.fit(train_x, train_y)
+    acc = accuracy_score(test_y, model.predict(test_x))
+    print('{:>8s} | {:8.3f}'.format(kernel, acc))
