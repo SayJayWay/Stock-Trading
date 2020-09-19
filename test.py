@@ -20,10 +20,10 @@ import requests
 ##print(elapsed)
 
 
-start = dt.datetime(2016,1,1)
+start = dt.datetime(2011,1,1)
 end = dt.datetime(2020,9,12)
 
-tickers = ['GDX']
+tickers = ['EUR=X']
 
 for ticker in tickers:
         if not os.path.exists('stock_dfs/{}.csv'.format(ticker)):
