@@ -512,3 +512,126 @@ test[sel].sum().apply(np.exp)
 
 test[sel].cumsum().apply(np.exp).plot(figsize = (10, 6))
 plt.title('Performance of EUR/USD and classification-based trading strategies (randomized train-test split)')
+
+#%%
+# =============================================================================
+# Deep Neural Networks
+# =============================================================================
+# This example applies MLPClassifier algorithm from scikit-learn.  Algo is
+# trained and tested on the whole data set, using the digitize features.  It
+# achieves unrealistically good performance which suggests overfitting
+
+from sklearn.neural_network import MLPClassifier
+
+model = MLPClassifier(solver = 'lbfgs', alpha=1e-5, hidden_layer_sizes = 2 * [250],
+                      random_state = 1)
+
+model.fit(data[cols_bin], data['direction'])# %time 10.8s
+
+MLPClassifier(activation='relu', alpha = 1e-05, batch_size = 'auto', beta_1 = 0.9,
+              beta_2 = 0.999, early_stopping = False, epsilon = 1e-08,
+              hidden_layer_sizes = [250, 250], learning_rate = 'constant', 
+              learning_rate_init = 0.001, max_iter = 200, momentum = 0.9,
+              n_iter_no_change = 10, nesterovs_momentum = True, power_t = 0.5,
+              random_state = 1, shuffle = True, solver = 'lbfgs', tol = 0.0001,
+              validation_fraction = 0.1, verbose = False, warm_start = False)
+
+data['pos_dnn_sk'] = model.predict(data[cols_bin])
+data['strat_dnn_sk'] = data['pos_dnn_sk'] * data['returns']
+
+data[['returns', 'strat_dnn_sk']].sum().apply(np.exp)
+
+data[['returns', 'strat_dnn_sk']].cumsum().apply(np.exp).plot(figsize = (10, 6))
+plt.title('EUR/EUS and DNN-based trading strategy (scikit-learn in-sample)')
+
+# To avoid overfitting,  implement train-test split.
+
+train, test = train_test_split(data, test_size = 0.5, random_state = 100)
+
+train = train.copy().sort_index()
+
+test = test.copy().sort_index()
+
+# Increases number of hidden layers and hidden units
+model = MLPClassifier(solver = 'lbfgs', alpha = 1e-5, max_iter = 500,
+                      hidden_layer_sizes = 3 * [500], random_state = 1)
+
+model.fit(train[cols_bin], train['direction']) # %time 1 min 24 s
+
+MLPClassifier(activation = 'relu', alpha = 1e-05, batch_size = 'auto', beta_1 = 0.9,
+              beta_2 = 0.999, early_stopping = False, epsilon = 1e-08,
+              hidden_layer_sizes = [500, 500, 500], learning_rate = 'constant',
+              learning_rate_init = 0.001, max_iter = 500, momentum = 0.9,
+              n_iter_no_change = 10, nesterovs_momentum = True, power_t = 0.5,
+              random_state = 1, shuffle = True, solver = 'lbfgs', tol = 0.0001,
+              validation_fraction = 0.1, verbose = False, warm_start = False)
+
+test['pos_dnn_sk'] = model.predict(test[cols_bin])
+test['strat_dnn_sk'] = test['pos_dnn_sk'] * test['returns']
+
+test[['returns', 'strat_dnn_sk']].sum().apply(np.exp)
+
+# Seems to underperform?..
+test[['returns', 'strat_dnn_sk']].cumsum().apply(np.exp).plot(figsize = (10, 6))
+plt.title('EUR/USD and DNN-based trading strategy (scikit-learn, randomized train-test split)')
+
+#%% DNN with TensorFlow
+import tensorflow as tf
+tf.logging.set_verbosity(tf.logging.ERROR)
+
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
+fc = [tf.contrib.layers.real_valued_column('lags', dimension = lags)]
+
+model = tf.contrib.learn.DNNClassifier(hidden_units = 3 * [500],
+                                       n_classes = len(bins) + 1,
+                                       feature_columns = fc)
+
+def input_fn():
+    fc = {'lags' : tf.constant(data[cols_bin].values)}
+    la = tf.constant(data['direction'].apply(lambda x: 0 if x < 0 else 1).values,
+                     shape=[data['direction'].size, 1])
+    return fc, la
+
+model.fit(input_fn = input_fn, steps = 250) # %time 29.7s
+
+model.evaluate(input_fn = input_fn, steps = 1) # Binary predictions (0,1)...
+
+pred = np.array(list(model.predict(input_fn = input_fn))) # Binary predictions (0,1)...
+
+data['pos_dnn_tf'] = np.where(pred > 0, 1, -1) #...need to be transformed to market positions (-1, +1)
+
+data['strat_dnn_tf'] = data['pos_dnn_tf'] * data['returns']
+
+data[['returns', 'strat_dnn_tf']].sum().apply(np.exp)
+#returns         1.110278
+#strat_dnn_tf    2.114755
+#dtype: float64
+
+data[['returns', 'strat_dnn_tf']].cumsum().apply(np.exp).plot(figsize = (10, 6))
+
+plt.title('EUR/USD and DNN-based trading strategy (TensorFlow, in-sample)')
+
+# Now with train-test split
+
+model = tf.contrib.learn.DNNClassifier(hidden_units = 3 * [500],
+                                       n_classes = len(bins) + 1,
+                                       feature_columns = fc)
+
+data = train # from the scikit learn example
+
+model.fit(input_fn = input_fn, steps = 2500) # %time 2min 4s
+
+data = test # from the scikit learn example
+model.evaluate(input_fn = input_fn, steps = 1)
+
+pred = np.array(list(model.predict(input_fn = input_fn)))
+
+test['pos_dnn_tf'] = np.where(pred > 0, 1, -1)
+test['strat_dnn_tf'] = test['pos_dnn_tf'] * test['returns']
+
+test[['returns', 'strat_dnn_sk', 'strat_dnn_tf']].sum().apply(np.exp)
+
+test[['returns', 'strat_dnn_sk', 'strat_dnn_tf']].cumsum().apply(np.exp).plot(figsize = (10, 6))
+plt.title('EUR/USD and DNN-based trading strategy (TensorFlow, randomized train-test split)')
