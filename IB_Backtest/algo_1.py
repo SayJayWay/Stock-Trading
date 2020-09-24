@@ -1,6 +1,7 @@
 from ib.opt import Connection, message
 from ib.ext.Contract import Contract
 from ib.ext.Order import Order
+from time import sleep
 
 def make_contract(symbol, sec_type, exch, prim_exch, curr):
     Contract.m_symbol = symbol
@@ -30,11 +31,12 @@ def main():
     print('CONNECTED')
     conn.connect()
     
-    oid = 500
+    oid = 
     cont = make_contract('TSLA', 'STK', 'SMART', 'SMART', 'USD')
     offer = make_order('BUY', 1, 100)
     
     conn.placeOrder(oid, cont, offer)
+    sleep(1)
     print('ORDER PLACED')
 #    conn.disconnect()
 #    print('DISCONNECTED')
