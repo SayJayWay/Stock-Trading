@@ -23,7 +23,7 @@ from pylab import plt
 np.random.seed(1000)
 plt.style.use('seaborn')
 
-# Simulat 50 series ith 100 coin tosses per series.
+# Simulate 50 series with 100 coin tosses per series.
 p = 0.55 # Probability for heads
 f = p - (1 - p) # Optimal Fraction as per Kelly criterion
 I = 50 # Number of series to be simulated
