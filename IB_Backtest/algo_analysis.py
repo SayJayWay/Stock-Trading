@@ -5,17 +5,40 @@ from pylab import plt
 import scipy.stats as scs
 
 class Algo_Analysis:
+    '''Algo_Analysis is a class created to perform the following statistical analyses:
+                1) calc_Drawdown - Returns maximum drawdown value and drawdown
+                                    period
+                2) calc_Cvar - Returns credit value at risk for multiple confidence
+                                intervals
+                3) calc_Kelly - Returns Kelly Criterion for position sizing
+    '''
     def __init__(self, res_df):
         self.res_df = res_df
     
     def calc_Drawdown(self, log_ret_column, num_shares):        
+        ''' Calculates maximum drawdown and drawdown period
+        Parameters
+        ===========
+        log_ret_column: Name of column that contains the log returns of the
+                        algo/strategy
+                        
+        num_shares: Number of shares that should be purchased (can be determined
+                    via Kelly Criterion --- Might remove and make it auto calculate)
+        
+        Returns
+        =======
+        t_per: Longest dradown period in seconds (t_pser.seconds / 60 / 60 for time
+               in hours)
+        
+        max_drawdown: Maximum drawdown value
+        '''
         risk = self.res_df # Relevant log returns time series...
         
         # ...scaled by initial equity...
         risk['equity'] = self.res_df[log_ret_column].cumsum().apply(np.exp) * num_shares        
         risk['cummax'] = risk['equity'].cummax() # cumulative maximum values over time        
         risk['drawdown'] = risk['cummax'] - risk['equity'] # Drawdown values over time      
-        risk['drawdown'].max() # Maximum drawdown value
+        self.max_drawdown = risk['drawdown'].max() # Maximum drawdown value
         
         t_max = risk['drawdown'].idxmax() # Point in time when it happens
         temp = risk['drawdown'][risk['drawdown'] == 0] # Identifies highs for which drawdown must be 0
@@ -33,7 +56,20 @@ class Algo_Analysis:
         plt.axvline(t_max, c = 'r', alpha = 0.5)
         plt.title('Max drawdown (vertical line) and drawdown periods (horizontal lines)')
         
+        return t_per, self.max_drawdown
+        
     def calc_Cvar(self, log_ret_column, num_shares):
+        '''Calculates credit value at risk for multiple confidence intervals
+        Parameters
+        ==========
+        log_ret_column: Name of column that contains the log returns of the
+                        algo/strategy
+        num_shares: Number of shares that should be purchased (can be determined
+                    via Kelly Criterion --- Might remove and make it auto calculate)
+        Returns
+        =======
+        Var: Returns Value-at-Risk values for various confidence levels
+        '''
         percs = np.array([0.01, 0.1, 1. , 2.5, 5.0, 10.0]) # % percentages to be used
         
         risk = self.res_df[log_ret_column]
@@ -63,7 +99,24 @@ class Algo_Analysis:
         
         print_var()
         
-    def calc_kelly(self, log_ret_column, prob_success):
+        return Var
+        
+    def calc_Kelly(self, log_ret_column, prob_success):
+        ''' Calculates full Kelly and half Kelly values based on Kelly criterion
+        
+        Parameters
+        ==========
+        log_ret_column: Name of column that contains the log returns of the
+                        algo/strategy
+                        
+        prob_success: probability of success given in decimal value
+        
+        Returns
+        =======
+        full_Kelly: Optimal leverage according to Kelly criterion ("full Kelly")
+        
+        half_Kelly: full_Kelly * 0.5
+        '''
         # Optimized Leverage
         # Since we have trading strategy's log returns data, the mean and variance 
         # values can be calculated in order to derive the optimal leverage according
@@ -81,11 +134,11 @@ class Algo_Analysis:
         #returns        0.088663
         #strategy_tc    0.088630
         
-        mean / var # Optimal leverage according to Kelly criterion ("full Kelly")
+        self.full_Kelly = mean / var # Optimal leverage according to Kelly criterion ("full Kelly")
         #returns       -5.156448
         #strategy_tc   -2.956984
         
-        mean / var * 0.5 # "half Kelly"
+        self.half_Kelly = mean / var * 0.5 # "half Kelly"
         #returns       -2.578224
         #strategy_tc   -1.478492
         
@@ -101,3 +154,5 @@ class Algo_Analysis:
             
         test[to_plot].cumsum().apply(np.exp).plot(figsize = (10, 6))
         plt.title('Performance of algo trading strategy for different leverage values')
+        
+        return self.full_Kelly, self.half_Kelly
