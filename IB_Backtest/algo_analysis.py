@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 from pylab import plt
 import scipy.stats as scs
+#
 
 class Algo_Analysis:
     '''Algo_Analysis is a class created to perform various statistical analyses:
