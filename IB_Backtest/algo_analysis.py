@@ -89,7 +89,7 @@ class Algo_Analysis:
                 for pair in zip(percs, self.Var):
                     print('%16.2f %16.3f' % (100 - pair[0], -pair[1]))
               
-        if hourly = True:
+        if hourly == True:
             # Re-evaluating VaR values for a time horizon of 1-hour by resampling the original
             # DataFrame object.  In effect, VaR values are increased for all CIs but the
             # highest one.
