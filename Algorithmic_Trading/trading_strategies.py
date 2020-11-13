@@ -577,7 +577,7 @@ plt.title('EUR/USD and DNN-based trading strategy (scikit-learn, randomized trai
 
 #%% DNN with TensorFlow
 import tensorflow as tf
-tf.logging.set_verbosity(tf.logging.ERROR)
+# tf.logging.set_verbosity(tf.logging.ERROR)
 
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'

@@ -3,7 +3,6 @@ import pandas as pd
 import numpy as np
 from pylab import plt
 import scipy.stats as scs
-#
 
 class Algo_Analysis:
     '''Algo_Analysis is a class created to perform various statistical analyses:
@@ -107,7 +106,6 @@ class Algo_Analysis:
                 
         print_var()
             
-        
     def calc_Kelly(self, strat_log_ret_column, prob_success):
         ''' Calculates full Kelly and half Kelly values based on Kelly criterion
         
