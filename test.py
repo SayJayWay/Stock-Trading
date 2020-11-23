@@ -26,10 +26,10 @@ end = dt.datetime(2020,9,12)
 tickers = ['EUR=X']
 
 for ticker in tickers:
-        if not os.path.exists('stock_dfs/{}.csv'.format(ticker)):
-           df = web.DataReader(ticker, 'yahoo', start, end)
-           df.to_csv('stock_dfs/{}.csv'.format(ticker))
-           print('success')
-        else:
-           print('Already have {}'.format(ticker))
-
+    
+    if not os.path.exists('stock_dfs/{}.csv'.format(ticker)):
+       df = web.DataReader(ticker, 'yahoo', start, end)
+       df.to_csv('stock_dfs/{}.csv'.format(ticker))
+       print('success')
+    else:
+       print('Already have {}'.format(ticker))
