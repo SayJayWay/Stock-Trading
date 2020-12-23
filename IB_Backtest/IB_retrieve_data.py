@@ -1,6 +1,7 @@
 #! Retrieve historical data from IB_insync
 
 from time import sleep
+from datetime import datetime as dt
 
 import nest_asyncio
 nest_asyncio.apply()
@@ -9,45 +10,55 @@ from ib_insync import *
 
 
 
-def main():
-    ib = IB()
+# def main():
+with IB() as ib:
+
     ib.connect('127.0.0.1', port = 7497, clientId = 556)
     print('CONNECTED')
     import datetime as dt
     start = dt.datetime(2019,6,20)
-    end = datetime.datetime.now()
+    end = dt.datetime.now()
     barsList = []
-    
-    reqHistoricalData(contract, endDateTime, durationStr, barSizeSetting, 
-                      whatToShow, useRTH, formatDate=1, keepUpToDate=False, 
-                      chartOptions=[], timeout=60)
 
-    dt = end
-    
     contract = Stock('PLTR', 'SMART','USD')
+    bars = ib.reqHistoricalData(
+        contract, endDateTime='', durationStr='30 D',
+        barSizeSetting='1 hour', whatToShow='MIDPOINT', useRTH=True)
     
-    while dt > start:
-        bars = ib.reqHistoricalData(
-                contract,
-                endDateTime=dt,
-                durationStr='600 S',
-                barSizeSetting='30 secs',
-                whatToShow='MIDPOINT',
-                useRTH=True,
-                formatDate=1)
-        barsList.append(bars)
-        dt = bars[0].date
-        
-    allBars = [b for bars in reversed(barsList) for b in bars]
-    df = util.df(allBars)
-    f = open('hist.csv','a')
-    f.write(str(df) )
+    # convert to pandas dataframe:
+    df = util.df(bars)
     print(df)
-    ib.disconnect()
+
+# bars = ib.reqHistoricalData(contract, endDateTime, durationStr, barSizeSetting, 
+#                   whatToShow, useRTH, formatDate=1, keepUpToDate=False, 
+#                   chartOptions=[], timeout=60)
+
+# dt = end
+
+# contract = Stock('PLTR', 'SMART','USD')
+
+# while dt > start:
+#     bars = ib.reqHistoricalData(
+#             contract,
+#             endDateTime=dt,
+#             durationStr='600 S',
+#             barSizeSetting='30 secs',
+#             whatToShow='MIDPOINT',
+#             useRTH=True,
+#             formatDate=1)
+#     barsList.append(bars)
+#     dt = bars[0].date
     
-if __name__ == '__main__':
-    ib, trade = main()
-    ib.disconnect()
+# allBars = [b for bars in reversed(barsList) for b in bars]
+# df = util.df(allBars)
+# f = open('hist.csv','a')
+# f.write(str(df) )
+# print(df)
+ib.disconnect()
+    
+# if __name__ == '__main__':
+#     ib, trade = main()
+    # ib.disconnect()
 
 '''contract (Contract) – Contract of interest.
 
