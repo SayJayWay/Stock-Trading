@@ -1,0 +1,749 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1126</width>
+    <height>720</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Stock Screener</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1281</width>
+      <height>701</height>
+     </rect>
+    </property>
+    <property name="focusPolicy">
+     <enum>Qt::NoFocus</enum>
+    </property>
+    <property name="currentIndex">
+     <number>1</number>
+    </property>
+    <widget class="QWidget" name="tab_3">
+     <attribute name="title">
+      <string>Stock Info</string>
+     </attribute>
+     <widget class="QLineEdit" name="lineEdit_2">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>10</y>
+        <width>113</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>10</y>
+        <width>47</width>
+        <height>14</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Ticker</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>50</y>
+        <width>47</width>
+        <height>14</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Volume</string>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="textBrowser_3">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>51</y>
+        <width>121</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>110</y>
+        <width>47</width>
+        <height>14</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Close</string>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="textBrowser_4">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>110</y>
+        <width>121</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+     </widget>
+     <widget class="QGraphicsView" name="graphicsView">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>340</y>
+        <width>381</width>
+        <height>311</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>310</y>
+        <width>47</width>
+        <height>14</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Last</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_6">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>310</y>
+        <width>61</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Days OHLC</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit">
+      <property name="geometry">
+       <rect>
+        <x>40</x>
+        <y>310</y>
+        <width>31</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>80</y>
+        <width>61</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>10-Avg Vol</string>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="textBrowser_5">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>81</y>
+        <width>121</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_7">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>140</y>
+        <width>47</width>
+        <height>14</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>QRG</string>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="textBrowser_6">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>140</y>
+        <width>121</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_8">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>170</y>
+        <width>47</width>
+        <height>14</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>EPS</string>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="textBrowser_7">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>170</y>
+        <width>121</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_9">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>200</y>
+        <width>81</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Dividend Yield</string>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="textBrowser_8">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>200</y>
+        <width>121</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_10">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>230</y>
+        <width>61</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Market Cap</string>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="textBrowser_9">
+      <property name="geometry">
+       <rect>
+        <x>80</x>
+        <y>230</y>
+        <width>121</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Analysis</string>
+     </attribute>
+     <widget class="QLineEdit" name="lineEdit_3">
+      <property name="geometry">
+       <rect>
+        <x>50</x>
+        <y>10</y>
+        <width>113</width>
+        <height>20</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_11">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>10</y>
+        <width>47</width>
+        <height>14</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Ticker</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_12">
+      <property name="geometry">
+       <rect>
+        <x>170</x>
+        <y>10</y>
+        <width>71</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Loading status</string>
+      </property>
+     </widget>
+     <widget class="QComboBox" name="comboBox">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>221</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <item>
+       <property name="text">
+        <string>Green VS Red Bars</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Two Crows</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Three Black Crows</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Three Inside Up/Down</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Three-Line Strike</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Three Outside Up/Down</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Three Stars In The South</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Three Advancing White Soldiers</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Abandoned Baby</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Advance Block</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Belt-hold</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Breakaway</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>ClosingMarubozu</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Concealing Baby Swallow</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Counterattack</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Dark Cloud Cover</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Doji</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Doji Star</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Dragonfly Doji</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Engulfing Pattern</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Evening Doji Star</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Evening Star</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Up/Down-gap side-by-side white lines</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Gravestone Doji</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Hammer</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Hanging Man</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Harami Pattern</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Harami Cross Pattern</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>High-Wave Candle</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Hikkake Pattern</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Modified Hikkake Pattern</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Homing Pigeon</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Identical Three Crows</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>In-Neck Pattern</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Inverted Hammer</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Kicking</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Kicking-bull/bear (longer marubozu)</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Ladder Bottom</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Long Legged Doji</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Long Line Candle</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Marubozu</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Matching Low</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Mat Hold</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Morning Doji Star</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Morning Star</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>On-Neck Pattern</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Piercing Pattern</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Rickshaw Man</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Rising/Falling Three Methods</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Separating Lines</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Shooting Star</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Short Line Candle</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Spinning Top</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Stalled Pattern</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Stick Sandwich</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Takuri</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Tasuki Gap</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Thrusting Pattern</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Tristar Pattern</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Unique 3 River</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Upside Gap Two Crows</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Upside/Downside Gap Three Methods</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QSpinBox" name="spinBox">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>80</y>
+        <width>42</width>
+        <height>22</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_14">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>80</y>
+        <width>31</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>days</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_13">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>80</y>
+        <width>81</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Analysis Range</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_15">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>110</y>
+        <width>331</width>
+        <height>281</height>
+       </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>img/bar-patterns/two-crows.png</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+      <property name="margin">
+       <number>0</number>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_2">
+     <attribute name="title">
+      <string>Create Algo</string>
+     </attribute>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1126</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuMain">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionSettings"/>
+    <addaction name="actionAppendix"/>
+   </widget>
+   <addaction name="menuMain"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionSettings">
+   <property name="text">
+    <string>Settings</string>
+   </property>
+  </action>
+  <action name="actionAppendix">
+   <property name="text">
+    <string>Appendix</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
