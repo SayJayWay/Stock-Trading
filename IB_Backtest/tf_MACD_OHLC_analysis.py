@@ -70,7 +70,7 @@ cp = tf.equal(tf.argmax(ntwk_output_2, 1), tf.argmax(outputs))
 
 acc = tf.reduce_mean(tf.cast(cp, tf.float32))
 
-def next_batch(num, data, labels):
+def next_batch(num, data, labels): 
     '''
     Return a total of 'num' random samples and labels. 
     '''
@@ -85,7 +85,7 @@ def next_batch(num, data, labels):
 
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
-    num_epochs = 1
+    num_epochs = 7
     for epoch in range(num_epochs):
         total_cost = 0
         for _ in range(int(len(df['Adj Close']) / batch_size)):
@@ -96,3 +96,4 @@ with tf.Session() as sess:
         
         test_x, test_y = next_batch(batch_size, inputs, outputs)
         print('Accuracy:', acc.eval({network_input:test_x, target_output: test_y}))
+        
